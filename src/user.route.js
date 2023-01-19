@@ -8,9 +8,7 @@ app.post("/signup",async(req,res)=>{
     const user=await User.findOne({ email });
 
     if (user) {
-        return res
-          .status(403)
-          .send({ message: "user already exists,please login" });
+        return res.send({ message: "user already exists,please login" });
       }
 
       await User.create({
@@ -46,6 +44,11 @@ app.post("/login",async (req, res) => {
       );
     
       return res.send({ message: "login successful", token });
+})
+
+app.get("/",async(req,res)=>{
+    let user=await User.find()
+    return res.send(user)
 })
 
 module.exports =app
